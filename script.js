@@ -70,11 +70,11 @@ function getRandomStatusCode() {
 }
 
 // Logging the visit
-function logVisit() {
-  getVisitorIP().then((visitorIP) => {
-    const log = `Status Code: ${getRandomStatusCode()} | Timestamp: ${new Date().toLocaleString()} | Sender IP: ${visitorIP} | Referrer IP: ${getReferrerIP()}`;
-    addLogEntry(log);
-  });
+function logVisit(visitorIP) {
+  const statusCode = getRandomStatusCode();
+  const timestamp = new Date().toLocaleString();
+  const log = `Status Code: ${statusCode} | Timestamp: ${timestamp} | Visitor IP: ${visitorIP} | Referrer IP: ${getReferrerIP()}`;
+  addLogEntry(log);
 }
 
 // Function to get the referring IP address
@@ -106,4 +106,6 @@ downloadLogsButton.addEventListener('click', () => {
 window.addEventListener('load', retrieveLogsFromLocalStorage);
 
 // Log visit when the page is loaded
-logVisit();
+getVisitorIP().then(visitorIP => {
+  logVisit(visitorIP);
+});
